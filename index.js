@@ -22,7 +22,7 @@ app.use(cors({
 app.use ( '/api/v1',router)
 
 app.get('/', (req, res) => {
-    res.send('main file') 
+    res.send('this is index.js') 
   })
 
 app.listen(process.env.PORT || 3000)   
