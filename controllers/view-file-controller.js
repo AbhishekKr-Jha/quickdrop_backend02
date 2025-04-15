@@ -27,7 +27,8 @@ export const upload_list_generator=async (req,res)=>{
 
     const command=new ListObjectsV2Command({
         Bucket:'bucketquickdrop',
-        Key:`/${userEmail}`,
+        // Key:`/${userEmail}`,
+Prefix: `/${userEmail}/`
         
     })
 
@@ -40,25 +41,32 @@ export const upload_list_generator=async (req,res)=>{
         })
         try {    
             const view_url=await getSignedUrl(s3Client,command)
-            // console.log("thye list value is",view_url)
+            console.log("thye list value is",view_url)
     return view_url
             
         } catch (error) {
            return "something went wrong"
         }
     
-    }
+    } 
 
       
         const upload_list=await s3Client.send(command)
-        // console.log(upload_list.Contents[0])
+
+       if(upload_list?.KeyCount==0)  return res.status(500).json({
+        success:false,
+            userValidation:false,
+            message:"No data available"
+       })
+
+        console.log("the upload lost is",upload_list)
         // let url= await get_presigned_view_url(upload_list.Contents[0].Key)
 
-    for(let element of upload_list.Contents){
-    let url= await get_presigned_view_url(element.Key)
+    for(let element of upload_list?.Contents){
+    let url= await get_presigned_view_url(element?.Key)
 
     view_url_array.push({
-        key:element.Key,  
+        key:element?.Key,  
         view_url:url
     })
     }
