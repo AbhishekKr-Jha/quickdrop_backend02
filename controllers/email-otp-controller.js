@@ -49,7 +49,7 @@ const transporter = nodemailer.createTransport({
   res.status(200).json({
  
         token:otp_func_response.token,
-        otp:otp_func_response.otp,
+        // otp:otp_func_response.otp,
         message:"OtpSent"
     }) 
   } catch (err) {
@@ -80,14 +80,11 @@ const transporter = nodemailer.createTransport({
   },
 }); 
 
-  
-
-    // ------validations
+    // ------validations-------
     let validationStatus= await otp_data_validator_func({otp,token,userEmail,receiverEmail,title,files})
     console.log(">>>>>",validationStatus)
     if(!validationStatus.success) return res.status(500).json(validationStatus)
 
- 
     const mailOptions = {
         from: '"QuickDrop Support " <noreply@quickdrop.in>',
         to: receiverEmail,
@@ -107,8 +104,8 @@ const transporter = nodemailer.createTransport({
       try {
         const isOtpCorrcet=jwt.verify(token, process.env.JWT_SECRET_KEY)
 if(isOtpCorrcet.otp!==Number(otp)) return res.status(200).json({
-  success:false,
-  message:"Invalid OTP!"
+  success:false,          
+  message:"Invalid OTP!"  
 })
 
 await  transporter.sendMail(mailOptions);

@@ -9,7 +9,7 @@ const isValidEmail = (email,emailMsg) => {
   };
 
   
-  const validateOtp = (otp) => {
+ export const validateOtp = (otp) => {
     if (!otp) {
       return { success: false, message: "OTP is required." };
     }
@@ -28,11 +28,11 @@ const isValidEmail = (email,emailMsg) => {
 
    };
   
-  const validateUserEmail = (email) => {
+ export const validateUserEmail = (email) => {
     if (!email) {
-      return { success: false, message: "Sender email is required." };
+      return { success: false, message: "User email is required." };
     }
-    return isValidEmail(email,"Sender email is invalid!");
+    return isValidEmail(email,"User email is invalid!");
   };
   
   const validateReceiverEmail = (email) => {

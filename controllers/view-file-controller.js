@@ -86,11 +86,11 @@ res.status(200).json({
         res.status(500).json({
             success:false,
             userValidation:false,
-            message:"Something went wrong"
+            message:"Invalid User!"
         }) 
     }
 
-}
+}   
 
 
 
